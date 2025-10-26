@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>공무직 연차유급휴가 및 연차수당 계산기</title>
+  <link rel="icon" href="../static/favicon.png">
+  <link rel="stylesheet" href="../static/styles.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script defer src="./script.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="shell">
+    <h1>공무직 연차유급휴가 및 연차수당 계산기</h1>
+    <p class="sub">기관 규정 차이를 고려해 ‘기본값 + 보정값’ 구조로 설계</p>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="card">
+    <h2>1) 기본 정보</h2>
+    <div class="grid three">
+      <label>성명<input id="name" type="text" placeholder="예: 홍길동"></label>
+      <label>입사일<input id="hireDate" type="date"></label>
+      <label>기준 연도<input id="year" type="number" value="2025"></label>
+
+      <label>주 소정근로시간(시간)<input id="weeklyHours" type="number" step="0.5" value="40"></label>
+      <label>상시근무 여부<select id="isFull"><option value="Y">예</option><option value="N">아니오</option></select></label>
+      <label>결근/무급 등 차감(일)<input id="deductDays" type="number" step="0.5" value="0"></label>
+    </div>
+    <div class="note">※ 각 시·도 교육청/기관 단협·복무규정 따라 상이할 수 있으므로, 아래 ‘보정값’을 통해 실제 규정에 맞게 조정하세요.</div>
+  </section>
+
+  <section class="card">
+    <h2>2) 자동 산정(기본 규칙)</h2>
+    <div class="grid three">
+      <label>기본 연차(자동 계산, 일)<input id="baseDays" type="text" disabled></label>
+      <label>근속 가산(자동 계산, 일)<input id="seniorityDays" type="text" disabled></label>
+      <label>총 부여(자동 계산, 일)<input id="autoTotal" type="text" disabled></label>
+    </div>
+    <div class="note">기본 규칙(참고): 입사연도 월단위 1일/월, 2년차 15일, 이후 2년마다 1일 가산(최대 상한 적용) — 실제 기관 규정과 다를 수 있음.</div>
+  </section>
+
+  <section class="card">
+    <h2>3) 기관 규정 보정</h2>
+    <div class="grid three">
+      <label>기본 연차 보정(+/−, 일)<input id="adjBase" type="number" step="0.5" value="0"></label>
+      <label>근속 가산 보정(+/−, 일)<input id="adjSenior" type="number" step="0.5" value="0"></label>
+      <label>최종 부여(일)<input id="finalDays" type="text" disabled></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>4) 연차수당 계산(선택)</h2>
+    <div class="grid three">
+      <label>통상임금(시급, 원)<input id="ordinaryWage" type="number" step="1" value="0"></label>
+      <label>1일 근로시간(시간)<input id="hoursPerDay" type="number" step="0.5" value="8"></label>
+      <label>미사용 연차(일)<input id="unusedDays" type="number" step="0.5" value="0"></label>
+
+      <label>예상 연차수당(원)<input id="payout" type="text" disabled></label>
+      <div></div><div></div>
+    </div>
+    <div class="note">※ 연차수당 산식은 기관별로 다를 수 있습니다. 일반적으로 ‘통상임금 × 1일 근로시간 × 미사용 일수’를 사용합니다.</div>
+  </section>
+
+  <section class="card">
+    <h2>내보내기</h2>
+    <div class="row gap">
+      <button id="exportExcel" class="btn primary">엑셀로 다운로드</button>
+      <a class="btn" href="../">홈으로</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div><strong>제작자:</strong> 귀여운 고주무관</div>
+    <div><strong>Contact:</strong> <a href="mailto:edusproutcomics@naver.com">edusproutcomics@naver.com</a></div>
+    <div class="footer-note">업무 효율화를 위해 작업 중인 개인적인 토이 프로젝트이며, 도교육청 및 교육지원청 공식 배포 사이트가 아니니 참고하여주시기 바랍니다.</div>
+  </div>
+</footer>
+
+</body>
+</html>
